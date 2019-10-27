@@ -128,6 +128,7 @@ public class TestActivity extends AppCompatActivity {
         }
         if (ogWord.base.toLowerCase().equals(inputWord.base.toLowerCase())) {
             result += 1;
+
         } else {
             System.out.println("w base");
         }
