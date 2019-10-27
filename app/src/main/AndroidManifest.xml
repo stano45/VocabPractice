@@ -10,22 +10,42 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewTestResultsActivity"></activity>
-        <activity android:name=".TestResultActivity" />
-        <activity android:name=".TestActivity" />
-        <activity android:name=".LoadingActivity">
+        <activity
+            android:name=".ViewTestResultsActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".TestResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoadingActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddGroup" />
-        <activity android:name=".GroupSelectActivity" />
-        <activity android:name=".ViewWordsActivity" />
-        <activity android:name=".AddActivity" />
-        <activity android:name=".SelectTestActivity" />
-        <activity android:name=".MenuActivity" />
+        <activity
+            android:name=".AddGroup"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".GroupSelectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ViewWordsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SelectTestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MenuActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

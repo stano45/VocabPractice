@@ -3,6 +3,7 @@ package com.stanley.vocabpractice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -47,6 +48,10 @@ public class TestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                getWindow().setSoftInputMode(
+                        WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+                );
+
                 if (testDone) {
                     Data.testList.add(currentTest);
                     LoadingActivity.writeTestsToFile();
@@ -75,11 +80,11 @@ public class TestActivity extends AppCompatActivity {
 
                     translationText.setText(currentTest.wordsUsed.get(currentQuestion).translation);
                     String inputWordString = "Answer: " + inputWord.article + " " + inputWord.base
-                            + " -" + inputWord.plural;
+                            + " " + inputWord.plural;
                     inputWordText.setText(inputWordString);
                     String rightWordString = "Right answer: " +
                             currentTest.wordsUsed.get(currentQuestion).article +
-                            " " + currentTest.wordsUsed.get(currentQuestion).base + " -" +
+                            " " + currentTest.wordsUsed.get(currentQuestion).base + " " +
                             currentTest.wordsUsed.get(currentQuestion).plural;
                     rightWordText.setText(rightWordString);
                     String pointsString = "Points: " + currentTest.points.get(currentQuestion) +
@@ -116,6 +121,9 @@ public class TestActivity extends AppCompatActivity {
         if (ogWord.article.toLowerCase().equals(inputWord.article.toLowerCase())) {
             result += 0.5;
         } else {
+            if (ogWord.phrase) {
+                result += 0.5;
+            }
             System.out.println("w article");
         }
         if (ogWord.base.toLowerCase().equals(inputWord.base.toLowerCase())) {
@@ -126,6 +134,9 @@ public class TestActivity extends AppCompatActivity {
         if (ogWord.plural.toLowerCase().equals(inputWord.plural.toLowerCase())) {
             result += 0.5;
         } else {
+            if (ogWord.phrase) {
+                result += 0.5;
+            }
             System.out.println("w plural");
         }
         return Math.round(result);

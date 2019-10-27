@@ -37,13 +37,14 @@ public class AddActivity extends AppCompatActivity {
                 w.article = article.getText().toString().replace(" ", "");
                 if (w.article.equals("")) {
                     w.article = "-";
+                    w.phrase = true;
                 }
                 w.base = base.getText().toString();
                 w.plural = plural.getText().toString().replace(" ", "");
                 if (w.plural.equals("")) {
                     w.plural = "-";
                 }
-                w.translation = translation.getText().toString().replace(" ", "");
+                w.translation = translation.getText().toString();
                 wordGroup.wordList.add(w);
                 LoadingActivity.writeWordsToFile();
                 article.setText("");

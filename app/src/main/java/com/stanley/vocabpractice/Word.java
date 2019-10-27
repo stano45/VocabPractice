@@ -7,4 +7,5 @@ class Word implements Serializable {
     String base;
     String plural;
     String translation;
+    boolean phrase;
 }
