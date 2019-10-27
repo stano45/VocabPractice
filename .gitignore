@@ -5,8 +5,10 @@
 /gradle
 .bat
 .properties
-.txt
 /.gradle
+/gradlew.bat
+/gradlew.txt
+/VocabPractice.iml
 /build.gradle
 /.idea/caches
 /.idea/libraries
