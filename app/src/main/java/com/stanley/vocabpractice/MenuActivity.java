@@ -1,14 +1,13 @@
 package com.stanley.vocabpractice;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends Activity {
 
     private Context context = GlobalApplication.getAppContext();
 

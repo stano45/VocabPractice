@@ -1,11 +1,10 @@
 package com.stanley.vocabpractice;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,18 +13,21 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
-public class LoadingActivity extends AppCompatActivity {
+public class LoadingActivity extends Activity {
 
     private static Context context = GlobalApplication.getAppContext();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        this.setContentView(R.layout.activity_menu);
+
 
         String toastMessage;
-        if (readWordsFromFile() == -1 || readTestsFromFile() == -1) {
-            toastMessage = "Unable to read from saved data.";
+        if (readWordsFromFile() == -1) {
+            toastMessage = "Unable to read words from saved data.";
+        } else if (readTestsFromFile() == -1) {
+            toastMessage = "Unable to read tests from saved data.";
         } else {
             toastMessage = "Data successfully read.";
             for (WordGroup w : Data.wordGroupList) {

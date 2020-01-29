@@ -1,5 +1,6 @@
 package com.stanley.vocabpractice;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +10,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.List;
 
-public class GroupSelectActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class GroupSelectActivity extends Activity implements AdapterView.OnItemClickListener {
     private ListView list;
     private ArrayAdapter<String> adapter;
     private TextView selectText;

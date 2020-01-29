@@ -45,6 +45,14 @@
         android:textSize="24sp" />
 
     <Button
+        android:id="@+id/testMistakes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:text="@string/test_mistakes"
+        android:textSize="24sp" />
+
+    <Button
         android:id="@+id/startTestButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

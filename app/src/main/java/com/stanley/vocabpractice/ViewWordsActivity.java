@@ -1,5 +1,6 @@
 package com.stanley.vocabpractice;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,9 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
-public class ViewWordsActivity extends AppCompatActivity {
+public class ViewWordsActivity extends Activity {
 
     private WordGroup group;
     private int groupId;
@@ -44,7 +44,7 @@ public class ViewWordsActivity extends AppCompatActivity {
 
         if (group.wordList != null) {
             for (Word w : group.wordList) {
-                adapter.add((group.wordList.indexOf(w) + 1) + ". " + w.article + " " + w.base + "- " +
+                adapter.add((group.wordList.indexOf(w) + 1) + ". " + w.article + " " + w.base + " " +
                         w.plural + " (" + w.translation + ")");
             }
         }

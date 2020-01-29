@@ -25,11 +25,10 @@
         android:id="@+id/article_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autoText="false"
         android:ems="10"
         android:importantForAutofill="no"
         android:hint="@string/article_edit"
-        android:inputType="none" />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/base_edit"
@@ -38,7 +37,7 @@
         android:ems="10"
         android:importantForAutofill="no"
         android:hint="@string/base_edit"
-        android:inputType="none" />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/plural_edit"
@@ -47,7 +46,7 @@
         android:ems="10"
         android:importantForAutofill="no"
         android:hint="@string/plural_edit"
-        android:inputType="none" />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/translation_edit"
@@ -56,7 +55,8 @@
         android:ems="10"
         android:importantForAutofill="no"
         android:hint="@string/translation_edit"
-        android:inputType="none" />
+        android:inputType="text"
+        android:imeOptions="actionSend" />
 
     <Button
         android:id="@+id/next_button"

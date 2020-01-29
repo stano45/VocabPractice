@@ -8,6 +8,8 @@ class Test implements Serializable {
     int maxPoints;
     int numQuestions;
     int pointsCount;
+    boolean fromMistakes = false;
+    Test lastTest;
     List<Integer> points = new ArrayList<>();
     WordGroup wordGroup;
     List<Word> wordsUsed = new ArrayList<>();

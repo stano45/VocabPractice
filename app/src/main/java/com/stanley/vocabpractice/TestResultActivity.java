@@ -1,15 +1,14 @@
 package com.stanley.vocabpractice;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestResultActivity extends AppCompatActivity {
+public class TestResultActivity extends Activity {
 
     private Test test;
 
@@ -33,12 +32,12 @@ public class TestResultActivity extends AppCompatActivity {
                 +test.points.size());
 
         for (int i = 0; i < test.points.size(); i++) {
-            if (test.points.get(i) < 3) {
+            if (test.points.get(i) < 2) {
                 rightWords.add(test.wordsUsed.get(i).article + " " + test.wordsUsed.get(i).base
                         + " " + test.wordsUsed.get(i).plural);
                 inputWords.add(test.wordsInput.get(i).article + " " + test.wordsInput.get(i).base
                         + " " + test.wordsInput.get(i).plural);
-                points.add(test.points.get(i) + "/3");
+                points.add(test.points.get(i) + "/2");
             }
         }
 

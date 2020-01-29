@@ -1,19 +1,24 @@
 package com.stanley.vocabpractice;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
-public class AddActivity extends AppCompatActivity {
+public class AddActivity extends Activity {
 
     private WordGroup wordGroup = new WordGroup();
     private int wordGroupId;
+    private EditText article, base, plural, translation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,33 +29,74 @@ public class AddActivity extends AppCompatActivity {
         i.putExtra("requestId", 1);
         startActivityForResult(i, 1);
 
-        final EditText article = findViewById(R.id.article_edit);
-        final EditText base = findViewById(R.id.base_edit);
-        final EditText plural = findViewById(R.id.plural_edit);
-        final EditText translation = findViewById(R.id.translation_edit);
+        article = findViewById(R.id.article_edit);
+        base = findViewById(R.id.base_edit);
+        plural = findViewById(R.id.plural_edit);
+        translation = findViewById(R.id.translation_edit);
+
+        article.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    if (base.requestFocus()) {
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                        article.clearFocus();
+                    }
+                    handled = true;
+                }
+                return handled;
+            }
+        });
+
+        base.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    if (plural.requestFocus()) {
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                        base.clearFocus();
+                    }
+                    handled = true;
+                }
+                return handled;
+            }
+        });
+
+        plural.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    if (translation.requestFocus()) {
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                        plural.clearFocus();
+                    }
+                    handled = true;
+                }
+                return handled;
+            }
+        });
+
+        translation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    addRoutine();
+                    handled = true;
+                }
+                return handled;
+            }
+        });
 
         final Button next = findViewById(R.id.next_button);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Word w = new Word();
-                w.article = article.getText().toString().replace(" ", "");
-                if (w.article.equals("")) {
-                    w.article = "-";
-                    w.phrase = true;
-                }
-                w.base = base.getText().toString();
-                w.plural = plural.getText().toString().replace(" ", "");
-                if (w.plural.equals("")) {
-                    w.plural = "-";
-                }
-                w.translation = translation.getText().toString();
-                wordGroup.wordList.add(w);
-                LoadingActivity.writeWordsToFile();
-                article.setText("");
-                base.setText("");
-                plural.setText("");
-                translation.setText("");
+
+                addRoutine();
 
             }
         });
@@ -66,6 +112,35 @@ public class AddActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    private void addRoutine() {
+        if (translation.getText().toString().equals("")) {
+            Toast.makeText(getApplicationContext(), "No translation added!",
+                    Toast.LENGTH_SHORT).show();
+        } else if (base.getText().toString().equals("")) {
+            Toast.makeText(getApplicationContext(), "No word added!",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Word w = new Word();
+            w.article = article.getText().toString().replace(" ", "");
+            if (w.article.equals("")) {
+                w.article = "-";
+                w.phrase = true;
+            }
+            w.base = base.getText().toString();
+            w.plural = plural.getText().toString().replace(" ", "");
+            if (w.plural.equals("")) {
+                w.plural = "-";
+            }
+            w.translation = translation.getText().toString();
+            wordGroup.wordList.add(w);
+            LoadingActivity.writeWordsToFile();
+            article.setText("");
+            base.setText("");
+            plural.setText("");
+            translation.setText("");
+        }
     }
 
     private void startAdding() {

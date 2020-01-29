@@ -1,5 +1,6 @@
 package com.stanley.vocabpractice;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,12 +10,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
-public class SelectTestActivity extends AppCompatActivity {
+public class SelectTestActivity extends Activity {
 
     private Test currentTest = new Test();
     private TextView chooseGroup;
+    private EditText numQuestionsEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,41 @@ public class SelectTestActivity extends AppCompatActivity {
             }
         });
 
-        final EditText numQuestionsEdit = findViewById(R.id.numQuestions);
+        Button testMistakes = findViewById(R.id.testMistakes);
+        testMistakes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentTest.wordGroup == null) {
+                    Toast.makeText(GlobalApplication.getAppContext(),
+                            "Select a group.", Toast.LENGTH_SHORT)
+                            .show();
+                    System.out.println("Select a group.");
+                } else {
+                    boolean found = false;
+                    for (Test t : Data.testList) {
+                        if (t.wordGroup.groupName.equals(currentTest.wordGroup.groupName)) {
+                            if (t.pointsCount < t.maxPoints) {
+                                found = true;
+                                currentTest.fromMistakes = true;
+                                currentTest.lastTest = t;
+                                Intent i = new Intent(GlobalApplication.getAppContext(), TestActivity.class);
+                                i.putExtra("CURRENT_TEST", currentTest);
+                                startActivity(i);
+                                finish();
+                            }
+                        }
+                    }
+                    if (!found) {
+                        Toast.makeText(GlobalApplication.getAppContext(),
+                                "No sufficient tests from group to determine mistakes", Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                }
+
+            }
+        });
+
+        numQuestionsEdit = findViewById(R.id.numQuestions);
         Button startTest = findViewById(R.id.startTestButton);
         startTest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +98,8 @@ public class SelectTestActivity extends AppCompatActivity {
                     return;
                 } else if (numQuestions > currentTest.wordGroup.wordList.size()) {
                     Toast.makeText(GlobalApplication.getAppContext(),
-                            "Number of questions is greater than words in group.",
+                            "Number of questions is greater than words in group. (" +
+                                    currentTest.wordGroup.wordList.size() + ")",
                             Toast.LENGTH_SHORT).show();
                     System.out.println("Number of questions is greater than words in group.");
                     return;
@@ -101,6 +137,8 @@ public class SelectTestActivity extends AppCompatActivity {
                 if (result > -1) {
                     currentTest.wordGroup = Data.wordGroupList.get(result);
                     chooseGroup.setText(currentTest.wordGroup.groupName);
+                    String q = Integer.toString(currentTest.wordGroup.wordList.size());
+                    numQuestionsEdit.setText(q);
 
                 }
             } else {

@@ -34,7 +34,7 @@
         android:ems="10"
         android:hint="@string/article_edit"
         android:importantForAutofill="no"
-        android:inputType="none" />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/testBaseEdit"
@@ -43,7 +43,7 @@
         android:ems="10"
         android:hint="@string/base_edit"
         android:importantForAutofill="no"
-        android:inputType="none" />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/testPluralEdit"
@@ -52,7 +52,7 @@
         android:ems="10"
         android:hint="@string/plural_edit"
         android:importantForAutofill="no"
-        android:inputType="none" />
+        android:inputType="text" />
 
     <Button
         android:id="@+id/testNextButton"
@@ -78,7 +78,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:textSize="17sp" />
+        android:textSize="17sp"
+        android:textColor="@color/green" />
 
     <TextView
         android:id="@+id/pointsText"
