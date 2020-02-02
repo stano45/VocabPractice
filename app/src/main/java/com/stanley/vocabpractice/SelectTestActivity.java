@@ -1,6 +1,5 @@
 package com.stanley.vocabpractice;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +9,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class SelectTestActivity extends Activity {
+public class SelectTestActivity extends AppCompatActivity {
 
     private Test currentTest = new Test();
     private TextView chooseGroup;
@@ -36,8 +36,8 @@ public class SelectTestActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(GlobalApplication.getAppContext(), GroupSelectActivity.class);
-                i.putExtra("requestId", 2);
-                startActivityForResult(i, 2);
+                i.putExtra("requestId", 4);
+                startActivityForResult(i, 4);
             }
         });
 
@@ -80,7 +80,14 @@ public class SelectTestActivity extends Activity {
         startTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int numQuestions = Integer.parseInt(numQuestionsEdit.getText().toString());
+                int numQuestions;
+                if (numQuestionsEdit.getText().toString().length() != 0) {
+                    numQuestions = Integer.parseInt(numQuestionsEdit.getText().toString());
+                } else {
+                    numQuestions = -1;
+                }
+
+
 
                 if (currentTest.wordGroup == null) {
                     Toast.makeText(GlobalApplication.getAppContext(),
@@ -124,7 +131,7 @@ public class SelectTestActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 2) {
+        if (requestCode == 4) {
             int result;
             if (resultCode == RESULT_OK) {
                 try {
@@ -138,7 +145,8 @@ public class SelectTestActivity extends Activity {
                     currentTest.wordGroup = Data.wordGroupList.get(result);
                     chooseGroup.setText(currentTest.wordGroup.groupName);
                     String q = Integer.toString(currentTest.wordGroup.wordList.size());
-                    numQuestionsEdit.setText(q);
+                    numQuestionsEdit.setText("");
+                    numQuestionsEdit.append(q);
 
                 }
             } else {

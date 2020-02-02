@@ -12,20 +12,18 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ViewTestResultsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".TestResultActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".TestActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LoadingActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,28 +32,22 @@
         </activity>
         <activity
             android:name=".AddGroup"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".GroupSelectActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ViewWordsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AddActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SelectTestActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MenuActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Black.NoTitleBar" />
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

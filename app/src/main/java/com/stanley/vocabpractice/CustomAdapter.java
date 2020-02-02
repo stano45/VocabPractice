@@ -15,7 +15,7 @@ public class CustomAdapter extends BaseAdapter {
     private List<String> rightWordList;
     private List<String> inputWordList;
     private List<String> pointsList;
-    private LayoutInflater inflter;
+    private LayoutInflater inflater;
 
     public CustomAdapter(Context applicationContext, List<String> rightWordList,
                          List<String> inputWordList, List<String> pointsList) {
@@ -23,7 +23,7 @@ public class CustomAdapter extends BaseAdapter {
         this.rightWordList = rightWordList;
         this.inputWordList = inputWordList;
         this.pointsList = pointsList;
-        inflter = (LayoutInflater.from(applicationContext));
+        inflater = (LayoutInflater.from(applicationContext));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class CustomAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflter.inflate(R.layout.text_layout_test, null);
+        view = inflater.inflate(R.layout.text_layout_test, null);
         TextView rightWords = view.findViewById(R.id.rightWord);
         TextView inputWords = view.findViewById(R.id.inputWord);
         TextView points = view.findViewById(R.id.points);

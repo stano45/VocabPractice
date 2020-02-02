@@ -1,14 +1,15 @@
 package com.stanley.vocabpractice;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestResultActivity extends Activity {
+public class TestResultActivity extends AppCompatActivity {
 
     private Test test;
 

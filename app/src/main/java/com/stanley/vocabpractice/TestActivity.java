@@ -1,6 +1,6 @@
 package com.stanley.vocabpractice;
 
-import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -11,9 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.Random;
 
-public class TestActivity extends Activity {
+public class TestActivity extends AppCompatActivity {
 
     private Test currentTest;
     private int currentQuestion;
@@ -21,12 +24,17 @@ public class TestActivity extends Activity {
     private EditText articleEdit, baseEdit, pluralEdit;
     private TextView translationText, inputWordText, rightWordText, pointsText, questionNumberText;
     private Button nextButton;
+    private AlertDialog alert;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         currentTest = (Test) getIntent().getSerializableExtra("CURRENT_TEST");
+
+        onBack();
 
         getRandomWords(currentTest.fromMistakes);
 
@@ -96,12 +104,45 @@ public class TestActivity extends Activity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 check();
             }
         });
 
 
+    }
+
+    private void onBack() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Confirm");
+        builder.setMessage("Are you sure you want to close the test?");
+
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing but close the dialog
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                // Do nothing
+                dialog.dismiss();
+            }
+        });
+
+        alert = builder.create();
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        alert.show();
     }
 
     private void check() {

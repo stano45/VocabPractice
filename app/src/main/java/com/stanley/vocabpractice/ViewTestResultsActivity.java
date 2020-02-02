@@ -1,12 +1,12 @@
 package com.stanley.vocabpractice;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
-public class ViewTestResultsActivity extends Activity {
+public class ViewTestResultsActivity extends AppCompatActivity {
 
     int testID;
 

@@ -1,6 +1,6 @@
 package com.stanley.vocabpractice;
 
-import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,19 +10,25 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.List;
 
-public class GroupSelectActivity extends Activity implements AdapterView.OnItemClickListener {
+public class GroupSelectActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     private ListView list;
     private ArrayAdapter<String> adapter;
     private TextView selectText;
     int rqid;
+    int position_id;
+    boolean longClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_select);
 
+        //rqid 1: from addActivity, 2: from viewWords, 3: from viewTestResults, 4:from selectTest
         rqid = getIntent().getIntExtra("requestId", -200);
         System.out.println("rqid: " + rqid);
         selectText = findViewById(R.id.selectText);
@@ -39,7 +45,7 @@ public class GroupSelectActivity extends Activity implements AdapterView.OnItemC
 
     private void setAdapter(int rqid) {
         adapter.clear();
-        if (rqid == 1 || rqid == 2) {
+        if (rqid == 1 || rqid == 2 || rqid == 4) {
             String sText = "Select a group: ";
             selectText.setText(sText);
             if (Data.wordGroupList != null) {
@@ -84,34 +90,58 @@ public class GroupSelectActivity extends Activity implements AdapterView.OnItemC
     }
 
     private void setRemove(final int rqid) {
-        if (rqid == 2) {
-            list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    Data.wordGroupList.remove(position);
-                    LoadingActivity.writeWordsToFile();
-                    setAdapter(rqid);
-                    setRemove(rqid);
-                    return false;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Confirm");
+        builder.setMessage("Are you sure you want to delete " + adapter.getItem(position_id)
+                + "?");
+
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing but close the dialog
+                if (rqid == 2) {
+                    Data.wordGroupList.remove(position_id);
+                } else {
+                    Data.testList.remove(position_id);
                 }
-            });
-        } else {
-            list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    Data.testList.remove(position);
-                    LoadingActivity.writeWordsToFile();
-                    setAdapter(rqid);
-                    setRemove(rqid);
-                    return false;
-                }
-            });
-        }
+                LoadingActivity.writeWordsToFile();
+                setAdapter(rqid);
+                dialog.dismiss();
+                longClicked = false;
+            }
+        });
+
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                // Do nothing
+                dialog.dismiss();
+            }
+        });
+
+        final AlertDialog alert = builder.create();
+
+
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                longClicked = true;
+                position_id = position;
+                alert.show();
+                return false;
+            }
+        });
+
 
     }
 
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
 
+        if (longClicked) return;
         System.out.println("pressed:" + position);
 
         List<?> list;

@@ -3,9 +3,6 @@ package com.stanley.vocabpractice;
 import android.app.Application;
 import android.content.Context;
 
-/**
- * Created by Jerry on 3/21/2018.
- */
 
 public class GlobalApplication extends Application {
 
