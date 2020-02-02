@@ -10,8 +10,6 @@ Android App for saving (mainly) German vocabulary and then testing yourself with
 
 * **Stanislav Kosorin** - [stano45](https://github.com/stano45)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
