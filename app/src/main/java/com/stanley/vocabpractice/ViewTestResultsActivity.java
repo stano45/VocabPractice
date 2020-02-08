@@ -29,6 +29,8 @@ public class ViewTestResultsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        //if selection of test was correct, continue on TestResultActivity
         if (requestCode == 3 && resultCode == RESULT_OK) {
             testID = data.getIntExtra("RESULT", -1);
             if (testID != -1) {

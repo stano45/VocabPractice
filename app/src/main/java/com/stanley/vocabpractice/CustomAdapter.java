@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-
+//CustomAdapter for showing test results
 public class CustomAdapter extends BaseAdapter {
     private Context context;
     private List<String> rightWordList;
@@ -17,8 +17,8 @@ public class CustomAdapter extends BaseAdapter {
     private List<String> pointsList;
     private LayoutInflater inflater;
 
-    public CustomAdapter(Context applicationContext, List<String> rightWordList,
-                         List<String> inputWordList, List<String> pointsList) {
+    CustomAdapter(Context applicationContext, List<String> rightWordList,
+                  List<String> inputWordList, List<String> pointsList) {
         this.context = applicationContext;
         this.rightWordList = rightWordList;
         this.inputWordList = inputWordList;

@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Random;
 
+//activity to run tests from word groups
 public class TestActivity extends AppCompatActivity {
 
     private Test currentTest;
@@ -27,15 +28,16 @@ public class TestActivity extends AppCompatActivity {
     private AlertDialog alert;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         currentTest = (Test) getIntent().getSerializableExtra("CURRENT_TEST");
 
+        //listener method to ask the user if they are sure about exiting
         onBack();
 
+        //assign word to test, if test is from mistakes, then choose those
         getRandomWords(currentTest.fromMistakes);
 
 
@@ -50,7 +52,8 @@ public class TestActivity extends AppCompatActivity {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_SEND) {
                     if (baseEdit.requestFocus()) {
-                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.
+                                SOFT_INPUT_STATE_ALWAYS_VISIBLE);
                         articleEdit.clearFocus();
                     }
                     handled = true;
@@ -65,7 +68,8 @@ public class TestActivity extends AppCompatActivity {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_SEND) {
                     if (pluralEdit.requestFocus()) {
-                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.
+                                SOFT_INPUT_STATE_ALWAYS_VISIBLE);
                         baseEdit.clearFocus();
                     }
                     handled = true;
@@ -80,7 +84,8 @@ public class TestActivity extends AppCompatActivity {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_SEND) {
                     if (nextButton.requestFocus()) {
-                        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+                        getWindow().setSoftInputMode(WindowManager.LayoutParams.
+                                SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                         pluralEdit.clearFocus();
                     }
                     handled = true;
@@ -246,18 +251,22 @@ public class TestActivity extends AppCompatActivity {
 
     private void getRandomWords(boolean fromMistakes) {
 
+        //if test is from mistakes, choose words from lastTest
         if (fromMistakes) {
             for (int i = 0; i < currentTest.lastTest.numQuestions; i++) {
+                //if points for given words are lower then maximum, add word to new test
                 if (currentTest.lastTest.points.get(i) < 2) {
                     currentTest.wordsUsed.add(currentTest.lastTest.wordsUsed.get(i));
                     currentTest.numQuestions++;
                 }
             }
-
             currentTest.maxPoints = currentTest.numQuestions * 2;
+            return;
         }
 
+        //if test is not from mistakes
         for (int i = 0; i < currentTest.numQuestions; i++) {
+            //get a random not previously used word and add it to test list
             Random rand = new Random();
             Word randomWord = currentTest.wordGroup.wordList.get(rand.nextInt(
                     currentTest.wordGroup.wordList.size()));
