@@ -1,7 +1,6 @@
 # VocabPractice
 
 Android App for saving (mainly) German vocabulary and then testing yourself with it.
-The "interesting" files found [here](app/src/main/java/com/stanley/vocabpractice/).
 
 ## Built With
 
